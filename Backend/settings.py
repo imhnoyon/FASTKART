@@ -41,13 +41,15 @@ INSTALLED_APPS = [
     #frameworks or packages****************
     'rest_framework',
     'cloudinary',
-    
+    'djoser',
+    'rest_framework_simplejwt',
     
     #local apps*********************
     
     'Products',
     'Users',
     'orders',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +131,30 @@ STATIC_URL = 'static/'
 
 
 AUTH_USER_MODEL='Users.User'
+
+
+
+REST_FRAMEWORK={
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': False, 
+    'SERIALIZERS': {
+        'user_create': 'Users.serializers.UserCreateSerializer',
+        'user': 'Users.serializers.UserSerializer',
+        'current_user': 'Users.serializers.UserSerializer',
+    },
+}
+
+
+from datetime import timedelta
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('Bearer',), 
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180), 
+}
