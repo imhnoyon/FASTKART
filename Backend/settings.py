@@ -70,7 +70,7 @@ ROOT_URLCONF = 'Backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],#os.path.join(BASE_DIR, 'templates')
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -152,6 +152,9 @@ DJOSER = {
     'USER_CREATE_PASSWORD_RETYPE': False, 
     'PASSWORD_RESET_CONFIRM_URL': 'password-reset/confirm/{uid}/{token}',
     'PASSWORD_RESET_SHOW_EMAIL_NOT_FOUND': True,
+    'EMAIL': {
+        'password_reset': 'Users.email.CustomPasswordResetEmail',
+    },
     'SERIALIZERS': {
         'user_create': 'Users.serializers.UserCreateSerializer',
         'user': 'Users.serializers.UserSerializer',
@@ -168,8 +171,6 @@ SIMPLE_JWT = {
 
 
 
-DOMAIN = 'localhost:8000'
-SITE_NAME = 'Backend'
 
 #Real email backend configuration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
