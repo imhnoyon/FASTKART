@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'drf_yasg',
     
     #frameworks or packages****************
+    'django_filters',
     'rest_framework',
     'cloudinary',
     'djoser',
@@ -142,7 +143,10 @@ AUTH_USER_MODEL='Users.User'
 REST_FRAMEWORK={
     'DEFAULT_AUTHENTICATION_CLASSES':(
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    # 'DEFAULT_FILTER_BACKENDS': (
+    #     'django_filters.rest_framework.DjangoFilterBackend',
+    # ),
 }
 
 DOMAIN = 'localhost:8000'
@@ -188,3 +192,12 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config( 
+  cloud_name = os.getenv('cloud_name'),
+  api_key = os.getenv('api_key'), 
+  api_secret = os.getenv('api_secret'),
+)
